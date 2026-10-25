@@ -1,4 +1,205 @@
 {
   "schema_version": 1,
-  "cards": []
+  "cards": [
+    {
+      "id": "a86f68a2-2557-4b08-a231-b0e302e20115",
+      "topic_id": "topic_e84b1e30",
+      "front": "In a database, what is a page, and why does it matter when you read a single row?",
+      "back": "A page is the fixed-size block that tables and indexes are stored in and that the database reads and writes as a unit. To read one row the database must load the whole page that contains it.",
+      "extra": "Postgres: every table and every index is stored as an array of fixed-size pages. In a table page the items are rows; in an index page the items are index entries.",
+      "created_at": "2026-10-25T16:43:03.787Z",
+      "updated_at": "2026-10-25T16:43:03.787Z",
+      "source_run_id": "run_2026-10-25",
+      "status": "active",
+      "scheduling": {
+        "box": 0,
+        "due_at": "2026-10-25T16:43:03.787Z",
+        "last_reviewed_at": null,
+        "consecutive_correct": 0,
+        "review_count": 0
+      },
+      "familiarity_history": [],
+      "feedback": []
+    },
+    {
+      "id": "c54c3ab9-08da-4da8-be94-728b3bc7e42e",
+      "topic_id": "topic_e84b1e30",
+      "front": "What is a database's buffer pool, and what does it mean for a page in it to be \"dirty\"?",
+      "back": "The buffer pool is an in-memory cache of pages. Reads and writes go through it. Changes are made to the cached copy, and a page that has changed but hasn't been written back to disk yet is \"dirty\".",
+      "extra": "Postgres calls its buffer pool \"shared buffers\". Dirty pages are written out later, mostly by the checkpointer and the background writer, not when each statement runs.",
+      "created_at": "2026-10-25T16:43:03.788Z",
+      "updated_at": "2026-10-25T16:43:03.788Z",
+      "source_run_id": "run_2026-10-25",
+      "status": "active",
+      "scheduling": {
+        "box": 0,
+        "due_at": "2026-10-25T16:43:03.788Z",
+        "last_reviewed_at": null,
+        "consecutive_correct": 0,
+        "review_count": 0
+      },
+      "familiarity_history": [],
+      "feedback": []
+    },
+    {
+      "id": "bb2405f6-e488-424f-bc30-a83b4a0d49e7",
+      "topic_id": "topic_e84b1e30",
+      "front": "Distinguish a key, a constraint, and an index.",
+      "back": "Key: a logical idea, a set of columns that identifies rows (or refers to them). Constraint: a rule the database enforces on the data, e.g. UNIQUE, NOT NULL, FOREIGN KEY. Index: a physical data structure that speeds up finding rows.",
+      "extra": "They overlap but aren't the same thing. A constraint is often enforced using an index; for example, Postgres enforces UNIQUE through a unique index. An index can also exist with no constraint at all.",
+      "created_at": "2026-10-25T16:43:03.789Z",
+      "updated_at": "2026-10-25T16:43:03.789Z",
+      "source_run_id": "run_2026-10-25",
+      "status": "active",
+      "scheduling": {
+        "box": 0,
+        "due_at": "2026-10-25T16:43:03.789Z",
+        "last_reviewed_at": null,
+        "consecutive_correct": 0,
+        "review_count": 0
+      },
+      "familiarity_history": [],
+      "feedback": []
+    },
+    {
+      "id": "24161f40-96b6-4bb7-b0fb-50c37eac3f53",
+      "topic_id": "topic_e84b1e30",
+      "front": "What does a primary key guarantee, how many can a table have, and what does Postgres build automatically to enforce it?",
+      "back": "Its values are unique and not null. A table has at most one primary key. Postgres automatically creates a unique B-tree index on the primary key column(s).",
+      "extra": "UNIQUE + NOT NULL accepts the same data, and a table can have any number of those. Declaring a UNIQUE constraint also creates a unique B-tree index automatically.",
+      "created_at": "2026-10-25T16:43:03.790Z",
+      "updated_at": "2026-10-25T16:43:03.790Z",
+      "source_run_id": "run_2026-10-25",
+      "status": "active",
+      "scheduling": {
+        "box": 0,
+        "due_at": "2026-10-25T16:43:03.790Z",
+        "last_reviewed_at": null,
+        "consecutive_correct": 0,
+        "review_count": 0
+      },
+      "familiarity_history": [],
+      "feedback": []
+    },
+    {
+      "id": "36149071-3b04-4604-a072-9d4dd66e0712",
+      "topic_id": "topic_e84b1e30",
+      "front": "What does a foreign key enforce, and does Postgres automatically index the referencing columns?",
+      "back": "Each value in the referencing column(s) must match a row in the referenced table (or be NULL). No: Postgres does not auto-index the referencing side, but indexing it is often a good idea.",
+      "extra": "Without that index, a DELETE in the referenced table, or an UPDATE of its key, has to scan the referencing table for matching rows. The referenced columns must be a primary key, a unique constraint, or a non-partial unique index, so they always have an index already.",
+      "created_at": "2026-10-25T16:43:03.791Z",
+      "updated_at": "2026-10-25T16:43:03.791Z",
+      "source_run_id": "run_2026-10-25",
+      "status": "active",
+      "scheduling": {
+        "box": 0,
+        "due_at": "2026-10-25T16:43:03.791Z",
+        "last_reviewed_at": null,
+        "consecutive_correct": 0,
+        "review_count": 0
+      },
+      "familiarity_history": [],
+      "feedback": []
+    },
+    {
+      "id": "7eb41da6-f34b-4fc8-9468-b8fc87bcf74c",
+      "topic_id": "topic_e84b1e30",
+      "front": "What is the default index type in Postgres, and what kinds of queries can it serve?",
+      "back": "B-tree: a sorted, balanced tree. It handles equality (=) and range comparisons (<, <=, >, >=, BETWEEN), and it can return rows already in ORDER BY order.",
+      "extra": "CREATE INDEX ... ON t (col) builds a B-tree unless you specify another type with USING. Because the tree stays balanced, a lookup walks only a few levels from the root to a leaf.",
+      "created_at": "2026-10-25T16:43:03.792Z",
+      "updated_at": "2026-10-25T16:43:03.792Z",
+      "source_run_id": "run_2026-10-25",
+      "status": "active",
+      "scheduling": {
+        "box": 0,
+        "due_at": "2026-10-25T16:43:03.792Z",
+        "last_reviewed_at": null,
+        "consecutive_correct": 0,
+        "review_count": 0
+      },
+      "familiarity_history": [],
+      "feedback": []
+    },
+    {
+      "id": "68d3a897-94a2-4c1e-8978-ce3454712944",
+      "topic_id": "topic_e84b1e30",
+      "front": "Indexes speed up reads. What do they cost on writes?",
+      "back": "Every index has to be kept in sync with its table. Each INSERT adds an entry to every index on the table, and most UPDATEs need new index entries too. That means more pages read and dirtied, more CPU, and more WAL.",
+      "extra": "Postgres: an UPDATE writes a new row version, and unless it qualifies as a HOT update (covered later), that version needs a new entry in every index, including indexes on columns that didn't change. A DELETE leaves index entries in place for VACUUM to clean up. The docs advise removing indexes that are seldom or never used.",
+      "created_at": "2026-10-25T16:43:03.793Z",
+      "updated_at": "2026-10-25T16:43:03.793Z",
+      "source_run_id": "run_2026-10-25",
+      "status": "active",
+      "scheduling": {
+        "box": 0,
+        "due_at": "2026-10-25T16:43:03.793Z",
+        "last_reviewed_at": null,
+        "consecutive_correct": 0,
+        "review_count": 0
+      },
+      "familiarity_history": [],
+      "feedback": []
+    },
+    {
+      "id": "00ee9e02-1a4a-420c-aae8-a86ed2e66ce1",
+      "topic_id": "topic_e84b1e30",
+      "front": "What is the core rule of write-ahead logging (WAL)?",
+      "back": "A change must be recorded in the log, and that log record flushed to durable storage, before the changed data page is written to disk. A transaction counts as committed once its WAL is flushed, even if its data pages haven't been written yet.",
+      "extra": "This is why dirty pages can stay in the buffer pool after a commit: the WAL already holds enough to redo the change. (This assumes the default synchronous_commit = on. With it off, the commit returns before the WAL flush, so a crash can lose the most recent commits.)",
+      "created_at": "2026-10-25T16:43:03.794Z",
+      "updated_at": "2026-10-25T16:43:03.794Z",
+      "source_run_id": "run_2026-10-25",
+      "status": "active",
+      "scheduling": {
+        "box": 0,
+        "due_at": "2026-10-25T16:43:03.794Z",
+        "last_reviewed_at": null,
+        "consecutive_correct": 0,
+        "review_count": 0
+      },
+      "familiarity_history": [],
+      "feedback": []
+    },
+    {
+      "id": "e327ed00-17dd-4d2c-a1ef-d1da376a3e6c",
+      "topic_id": "topic_e84b1e30",
+      "front": "Why is flushing the WAL on commit cheaper than flushing the changed data pages?",
+      "back": "WAL is written sequentially, as appends to the end of a log. The changed data pages may be scattered across many tables and indexes. Under concurrency, a single WAL flush (fsync) can also commit many transactions at once.",
+      "extra": "The benefit is largest for workloads with many small transactions that touch different parts of the database.",
+      "created_at": "2026-10-25T16:43:03.795Z",
+      "updated_at": "2026-10-25T16:43:03.795Z",
+      "source_run_id": "run_2026-10-25",
+      "status": "active",
+      "scheduling": {
+        "box": 0,
+        "due_at": "2026-10-25T16:43:03.795Z",
+        "last_reviewed_at": null,
+        "consecutive_correct": 0,
+        "review_count": 0
+      },
+      "familiarity_history": [],
+      "feedback": []
+    },
+    {
+      "id": "9dbf8dea-0e86-41c1-ab55-1d8aef98350d",
+      "topic_id": "topic_e84b1e30",
+      "front": "What is a checkpoint, and how does Postgres use it in crash recovery?",
+      "back": "At a checkpoint, all dirty pages are flushed to disk and a checkpoint record is written to the WAL. After a crash, Postgres reads the latest checkpoint record to find where to start, then replays (REDOs) WAL from there to bring the data files up to date.",
+      "extra": "Changes from before that starting point (the redo point) are guaranteed to be on disk already, so older WAL segments can be recycled, after archiving if archiving is enabled.",
+      "created_at": "2026-10-25T16:43:03.796Z",
+      "updated_at": "2026-10-25T16:43:03.796Z",
+      "source_run_id": "run_2026-10-25",
+      "status": "active",
+      "scheduling": {
+        "box": 0,
+        "due_at": "2026-10-25T16:43:03.796Z",
+        "last_reviewed_at": null,
+        "consecutive_correct": 0,
+        "review_count": 0
+      },
+      "familiarity_history": [],
+      "feedback": []
+    }
+  ]
 }
