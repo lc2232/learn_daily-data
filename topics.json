@@ -1,4 +1,13 @@
 {
   "schema_version": 1,
-  "topics": []
+  "topics": [
+    {
+      "id": "topic_e84b1e30",
+      "title": "Database and Postgres",
+      "priority": 1,
+      "status": "active",
+      "notes": "I want to learn about Databases specifically Postgres.\n\nPlease start with the generic concepts then start calling out what postgres does specifically to improve performance.\n\nI want to cover:\n- WAL\n- Indexes Vs Contraints vs Keys and their respective performance impact\n- The process by which each of them gets created\n- The performance impacts when inserting into each of them, with regards to memory and CPU\n- What pages are within a database and how postgres manages those.\n\nPlease avoid delving into the real nitty gritty of Postgres with regards to making me learn all of the default sizes of pages or items. If necessary teach me about the structure of the pages, but don't get me to learn about the size of each header, as an example. The same applies to other Postgres internals.",
+      "created_at": "2026-10-25T16:40:08.280Z"
+    }
+  ]
 }
