@@ -48,18 +48,31 @@
       "back": "(block number, line pointer index). The line pointer holds the tuple's actual offset, so Postgres can move tuple bytes within the page (e.g. compacting free space) and only update the line pointer — index entries pointing at the ctid stay valid.",
       "extra": "SELECT ctid, * FROM t; shows values like (0,1) = block 0, item 1.",
       "created_at": "2026-10-25T16:07:02.585Z",
-      "updated_at": "2026-10-25T16:07:02.585Z",
+      "updated_at": "2026-10-25T16:26:04.649Z",
       "source_run_id": "run_2026-10-25",
       "status": "active",
       "scheduling": {
         "box": 0,
-        "due_at": "2026-10-25T16:07:02.585Z",
-        "last_reviewed_at": null,
+        "due_at": "2026-10-25T16:26:04.649Z",
+        "last_reviewed_at": "2026-10-25T16:26:04.649Z",
         "consecutive_correct": 0,
-        "review_count": 0
+        "review_count": 1
       },
-      "familiarity_history": [],
-      "feedback": []
+      "familiarity_history": [
+        {
+          "ts": "2026-10-25T16:26:04.649Z",
+          "rating": "dont_know",
+          "prev_box": 0,
+          "new_box": 0
+        }
+      ],
+      "feedback": [
+        {
+          "ts": "2026-10-25T16:26:04.649Z",
+          "text": "What is CTID? This card feels really specific",
+          "consumed": false
+        }
+      ]
     },
     {
       "id": "3e2a6a1c-54b1-4ab2-8f8a-179ae77673dd",
