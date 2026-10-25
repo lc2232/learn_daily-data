@@ -1,4 +1,225 @@
 {
   "schema_version": 1,
-  "cards": []
+  "cards": [
+    {
+      "id": "e882c067-b996-44b1-b9aa-0f7fbf4379be",
+      "topic_id": "topic_b1a9dca5",
+      "front": "What is the default size of a Postgres page (block), and can you change it on a running server?",
+      "back": "8 kB. It's chosen at compile time, not configurable at runtime — an installation uses a single page size.",
+      "extra": "Tables and indexes are both stored as arrays of these fixed-size pages.",
+      "created_at": "2026-10-25T16:07:02.585Z",
+      "updated_at": "2026-10-25T16:07:02.585Z",
+      "source_run_id": "run_2026-10-25",
+      "status": "active",
+      "scheduling": {
+        "box": 0,
+        "due_at": "2026-10-25T16:07:02.585Z",
+        "last_reviewed_at": null,
+        "consecutive_correct": 0,
+        "review_count": 0
+      },
+      "familiarity_history": [],
+      "feedback": []
+    },
+    {
+      "id": "1d269499-1dc1-49fa-9fdf-fb3329579b12",
+      "topic_id": "topic_b1a9dca5",
+      "front": "In a Postgres heap page, list the regions in order from the start of the page to the end.",
+      "back": "1) 24-byte page header → 2) array of line pointers (ItemIds, 4 bytes each), growing forward → 3) free space → 4) tuples, filled in backward from the end of the page → 5) special space (empty for ordinary tables; used by index AMs, e.g. B-tree sibling links).",
+      "extra": "Line pointers grow down, tuples grow up; the page is full when they meet. pd_lower / pd_upper in the header mark the edges of the free space.",
+      "created_at": "2026-10-25T16:07:02.585Z",
+      "updated_at": "2026-10-25T16:07:02.585Z",
+      "source_run_id": "run_2026-10-25",
+      "status": "active",
+      "scheduling": {
+        "box": 0,
+        "due_at": "2026-10-25T16:07:02.585Z",
+        "last_reviewed_at": null,
+        "consecutive_correct": 0,
+        "review_count": 0
+      },
+      "familiarity_history": [],
+      "feedback": []
+    },
+    {
+      "id": "130ccd3a-28c6-4618-a843-44cda3b158c6",
+      "topic_id": "topic_b1a9dca5",
+      "front": "What does a Postgres ctid (TID) consist of, and why does it point at a line pointer rather than a byte offset?",
+      "back": "(block number, line pointer index). The line pointer holds the tuple's actual offset, so Postgres can move tuple bytes within the page (e.g. compacting free space) and only update the line pointer — index entries pointing at the ctid stay valid.",
+      "extra": "SELECT ctid, * FROM t; shows values like (0,1) = block 0, item 1.",
+      "created_at": "2026-10-25T16:07:02.585Z",
+      "updated_at": "2026-10-25T16:07:02.585Z",
+      "source_run_id": "run_2026-10-25",
+      "status": "active",
+      "scheduling": {
+        "box": 0,
+        "due_at": "2026-10-25T16:07:02.585Z",
+        "last_reviewed_at": null,
+        "consecutive_correct": 0,
+        "review_count": 0
+      },
+      "familiarity_history": [],
+      "feedback": []
+    },
+    {
+      "id": "3e2a6a1c-54b1-4ab2-8f8a-179ae77673dd",
+      "topic_id": "topic_b1a9dca5",
+      "front": "What three things does declaring a PRIMARY KEY in Postgres give you?",
+      "back": "1) Uniqueness, 2) NOT NULL on the column(s), 3) an automatically created unique B-tree index. A table can have at most one primary key.",
+      "extra": "PK ≈ UNIQUE + NOT NULL, plus it's the default target for foreign keys referencing the table.",
+      "created_at": "2026-10-25T16:07:02.585Z",
+      "updated_at": "2026-10-25T16:07:02.585Z",
+      "source_run_id": "run_2026-10-25",
+      "status": "active",
+      "scheduling": {
+        "box": 0,
+        "due_at": "2026-10-25T16:07:02.585Z",
+        "last_reviewed_at": null,
+        "consecutive_correct": 0,
+        "review_count": 0
+      },
+      "familiarity_history": [],
+      "feedback": []
+    },
+    {
+      "id": "3b4edf38-6456-4bb0-9bfa-0eec2e51092e",
+      "topic_id": "topic_b1a9dca5",
+      "front": "In Postgres, what's the relationship between a UNIQUE constraint and an index?",
+      "back": "The constraint is the logical rule; Postgres enforces it by automatically creating a unique B-tree index on the constrained column(s). The index is the physical mechanism that makes the uniqueness check fast.",
+      "extra": "You can also create a unique index directly (CREATE UNIQUE INDEX) without a constraint — it enforces uniqueness too, but doesn't appear as a table constraint.",
+      "created_at": "2026-10-25T16:07:02.585Z",
+      "updated_at": "2026-10-25T16:07:02.585Z",
+      "source_run_id": "run_2026-10-25",
+      "status": "active",
+      "scheduling": {
+        "box": 0,
+        "due_at": "2026-10-25T16:07:02.585Z",
+        "last_reviewed_at": null,
+        "consecutive_correct": 0,
+        "review_count": 0
+      },
+      "familiarity_history": [],
+      "feedback": []
+    },
+    {
+      "id": "b938502c-5573-4db3-96d8-54e8a97b51e3",
+      "topic_id": "topic_b1a9dca5",
+      "front": "Does declaring a FOREIGN KEY in Postgres automatically index the referencing column? Why does it matter?",
+      "back": "No. The referenced (parent) columns must already be backed by a PK, unique constraint, or non-partial unique index — but nothing is created on the referencing (child) side. Without a child-side index, every DELETE of a parent row (or UPDATE of its key) has to scan the child table to look for matching rows.",
+      "extra": "Common advice: add an index on FK columns of large child tables, especially when parents are deleted/updated or you join on the FK.",
+      "created_at": "2026-10-25T16:07:02.585Z",
+      "updated_at": "2026-10-25T16:07:02.585Z",
+      "source_run_id": "run_2026-10-25",
+      "status": "active",
+      "scheduling": {
+        "box": 0,
+        "due_at": "2026-10-25T16:07:02.585Z",
+        "last_reviewed_at": null,
+        "consecutive_correct": 0,
+        "review_count": 0
+      },
+      "familiarity_history": [],
+      "feedback": []
+    },
+    {
+      "id": "aae65b7a-77d6-458d-91cc-8ca50d3b291a",
+      "topic_id": "topic_b1a9dca5",
+      "front": "Can a Postgres UNIQUE column contain multiple NULLs? How can you change that?",
+      "back": "Yes by default — NULLs are treated as distinct, so they never collide. Since PostgreSQL 15, declaring UNIQUE NULLS NOT DISTINCT makes NULLs count as equal, so only one NULL is allowed.",
+      "extra": null,
+      "created_at": "2026-10-25T16:07:02.585Z",
+      "updated_at": "2026-10-25T16:07:02.585Z",
+      "source_run_id": "run_2026-10-25",
+      "status": "active",
+      "scheduling": {
+        "box": 0,
+        "due_at": "2026-10-25T16:07:02.585Z",
+        "last_reviewed_at": null,
+        "consecutive_correct": 0,
+        "review_count": 0
+      },
+      "familiarity_history": [],
+      "feedback": []
+    },
+    {
+      "id": "950f1612-0b71-4a7f-8f00-761f576d037e",
+      "topic_id": "topic_b1a9dca5",
+      "front": "Why does Postgres need VACUUM at all?",
+      "back": "Because of MVCC: UPDATE and DELETE don't remove old row versions immediately (other transactions may still see them). Once no transaction can see them, these dead tuples must be cleaned up so their space can be reused — that's VACUUM's job.",
+      "extra": "An UPDATE in Postgres is effectively insert-new-version + mark-old-version-dead.",
+      "created_at": "2026-10-25T16:07:02.585Z",
+      "updated_at": "2026-10-25T16:07:02.585Z",
+      "source_run_id": "run_2026-10-25",
+      "status": "active",
+      "scheduling": {
+        "box": 0,
+        "due_at": "2026-10-25T16:07:02.585Z",
+        "last_reviewed_at": null,
+        "consecutive_correct": 0,
+        "review_count": 0
+      },
+      "familiarity_history": [],
+      "feedback": []
+    },
+    {
+      "id": "c487f518-f3ca-4dd4-beb8-7000901778fe",
+      "topic_id": "topic_b1a9dca5",
+      "front": "Plain VACUUM vs VACUUM FULL in Postgres: how do they differ in locking and disk space?",
+      "back": "Plain VACUUM: runs alongside normal reads/writes; marks dead space reusable inside the table; it only shrinks the file when pages at the very end become completely empty. VACUUM FULL: takes an ACCESS EXCLUSIVE lock (blocks all access), rewrites the table into a new compact file, and returns space to the OS.",
+      "extra": "VACUUM FULL also needs extra disk roughly the size of the table while it runs. Autovacuum never runs VACUUM FULL.",
+      "created_at": "2026-10-25T16:07:02.585Z",
+      "updated_at": "2026-10-25T16:07:02.585Z",
+      "source_run_id": "run_2026-10-25",
+      "status": "active",
+      "scheduling": {
+        "box": 0,
+        "due_at": "2026-10-25T16:07:02.585Z",
+        "last_reviewed_at": null,
+        "consecutive_correct": 0,
+        "review_count": 0
+      },
+      "familiarity_history": [],
+      "feedback": []
+    },
+    {
+      "id": "9e199987-36c3-4330-a272-b36a0ed8436e",
+      "topic_id": "topic_b1a9dca5",
+      "front": "What does ANALYZE do in Postgres, and who consumes its output?",
+      "back": "It samples a random subset of a table's rows and records per-column statistics (e.g. most common values, histograms, null fraction) in the catalog. The query planner uses them to estimate row counts and choose plans.",
+      "extra": "Stored in the pg_statistic catalog (readable via the pg_stats view). Stale stats → bad row estimates → bad plans. Autovacuum also runs ANALYZE automatically when enough rows have changed.",
+      "created_at": "2026-10-25T16:07:02.585Z",
+      "updated_at": "2026-10-25T16:07:02.585Z",
+      "source_run_id": "run_2026-10-25",
+      "status": "active",
+      "scheduling": {
+        "box": 0,
+        "due_at": "2026-10-25T16:07:02.585Z",
+        "last_reviewed_at": null,
+        "consecutive_correct": 0,
+        "review_count": 0
+      },
+      "familiarity_history": [],
+      "feedback": []
+    },
+    {
+      "id": "4cdf2bdb-c247-4bd7-aa4b-c3225f59c11b",
+      "topic_id": "topic_b1a9dca5",
+      "front": "What does the Postgres visibility map track, and what two things does it speed up?",
+      "back": "Which heap pages contain only tuples visible to all transactions (\"all-visible\"). 1) VACUUM can skip those pages; 2) index-only scans can skip fetching the heap page to check visibility.",
+      "extra": "The all-visible bit is only ever set by VACUUM, but any data modification on the page clears it. So a table that's rarely vacuumed gets little benefit from index-only scans. (There's also a second, all-frozen bit per page.)",
+      "created_at": "2026-10-25T16:07:02.585Z",
+      "updated_at": "2026-10-25T16:07:02.585Z",
+      "source_run_id": "run_2026-10-25",
+      "status": "active",
+      "scheduling": {
+        "box": 0,
+        "due_at": "2026-10-25T16:07:02.585Z",
+        "last_reviewed_at": null,
+        "consecutive_correct": 0,
+        "review_count": 0
+      },
+      "familiarity_history": [],
+      "feedback": []
+    }
+  ]
 }
