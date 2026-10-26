@@ -121,12 +121,19 @@
       "status": "active",
       "scheduling": {
         "box": 0,
-        "due_at": "2026-10-25T16:43:03.791Z",
-        "last_reviewed_at": null,
+        "due_at": "2026-10-26T07:57:44.574Z",
+        "last_reviewed_at": "2026-10-26T07:57:44.574Z",
         "consecutive_correct": 0,
-        "review_count": 0
+        "review_count": 1
       },
-      "familiarity_history": [],
+      "familiarity_history": [
+        {
+          "ts": "2026-10-26T07:57:44.574Z",
+          "rating": "dont_know",
+          "prev_box": 0,
+          "new_box": 0
+        }
+      ],
       "feedback": []
     },
     {
