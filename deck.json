@@ -46,14 +46,20 @@
       "status": "active",
       "scheduling": {
         "box": 0,
-        "due_at": "2026-10-26T07:55:58.909Z",
-        "last_reviewed_at": "2026-10-26T07:55:58.909Z",
+        "due_at": "2026-10-26T17:20:45.491Z",
+        "last_reviewed_at": "2026-10-26T17:20:45.491Z",
         "consecutive_correct": 0,
-        "review_count": 1
+        "review_count": 2
       },
       "familiarity_history": [
         {
           "ts": "2026-10-26T07:55:58.909Z",
+          "rating": "dont_know",
+          "prev_box": 0,
+          "new_box": 0
+        },
+        {
+          "ts": "2026-10-26T17:20:45.491Z",
           "rating": "dont_know",
           "prev_box": 0,
           "new_box": 0
