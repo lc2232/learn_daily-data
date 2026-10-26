@@ -13,12 +13,19 @@
       "status": "active",
       "scheduling": {
         "box": 0,
-        "due_at": "2026-10-25T16:43:03.787Z",
-        "last_reviewed_at": null,
+        "due_at": "2026-10-26T07:55:14.843Z",
+        "last_reviewed_at": "2026-10-26T07:55:14.843Z",
         "consecutive_correct": 0,
-        "review_count": 0
+        "review_count": 1
       },
-      "familiarity_history": [],
+      "familiarity_history": [
+        {
+          "ts": "2026-10-26T07:55:14.843Z",
+          "rating": "dont_know",
+          "prev_box": 0,
+          "new_box": 0
+        }
+      ],
       "feedback": []
     },
     {
