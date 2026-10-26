@@ -79,15 +79,21 @@
       "status": "active",
       "scheduling": {
         "box": 0,
-        "due_at": "2026-10-26T07:56:30.619Z",
-        "last_reviewed_at": "2026-10-26T07:56:30.619Z",
-        "consecutive_correct": 0,
-        "review_count": 1
+        "due_at": "2026-10-26T17:23:58.440Z",
+        "last_reviewed_at": "2026-10-26T17:23:58.440Z",
+        "consecutive_correct": 1,
+        "review_count": 2
       },
       "familiarity_history": [
         {
           "ts": "2026-10-26T07:56:30.619Z",
           "rating": "dont_know",
+          "prev_box": 0,
+          "new_box": 0
+        },
+        {
+          "ts": "2026-10-26T17:23:58.440Z",
+          "rating": "know_it",
           "prev_box": 0,
           "new_box": 0
         }
